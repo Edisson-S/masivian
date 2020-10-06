@@ -1,0 +1,59 @@
+*************
+Installation
+*************
+
+Prerequisites
+==============
+
+- Install Python v.3.8 
+- Install pip *
+
+.. hint:: Verify if pip is actually installed within Python v.3.8 
+
+.. code:: console 
+
+    pip -V
+
+
+You should see output similar to the following:
+
+.. code:: console
+
+    pip 20.0.2 from C:\Users\lib\site-packages\pip (python 3.8)
+
+Install pip
+===========
+
+Download get-pip.py from https://bootstrap.pypa.io/get-pip.py and execute 
+
+.. code:: console 
+    
+    python get-pip.py
+
+You can verify that Pip was installed correctly by opening a command prompt and entering the following command:
+
+.. code:: console 
+
+    pip -V
+
+
+Install requirements
+--------------------------------
+
+check current packages installed using:
+
+.. code:: console
+
+    pip freeze
+
+In your `Virtual environment <https://virtualenvwrapper.readthedocs.io/en/latest/install.html>`_  install the requirements by executing:
+
+.. code:: console
+
+    pip install -r requirements.txt
+
+Start the Django Server: 
+
+.. code:: console
+
+    python manage.py runserver 8000

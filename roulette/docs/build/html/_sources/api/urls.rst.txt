@@ -1,0 +1,338 @@
+*****
+URLs
+*****
+
+This API contains the following endpoints
+
+
+.. http:post:: /api/newroulette/
+
+    Creates a new roulette in the database and returns its id
+
+    :reqheader Content-Type: Content-Type accepted by Server
+    :status 200: Creation successful 
+    :body: not required
+
+
+**Example Request**:
+
+.. http:example:: curl wget
+
+    POST /api/newroulette/ HTTP/1.1
+    Host: localhost:8000
+    Accept: application/json
+    Content-Type: application/json
+
+**Example response**:
+   
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+        "roulette_id": "fe87376f-61bf-4b12-beac-98ec2b019840"
+    }
+
+
+.. http:post:: /api/openroulette/
+
+    Opens a roulette for a given id and validates if the id exists or the roulette is already open
+
+    :reqheader Content-Type: Content-Type accepted by Server
+    :status 200: Operation successful 
+    :status 400: Operation rejected
+    :body: application/json 
+    
+**Body**
+
+.. sourcecode:: json 
+
+    {"roulette_id":"<rouletteid>"}
+
+
+**Example Request**:
+
+.. http:example:: curl wget
+
+    POST /api/openroulette/ HTTP/1.1
+    Host: localhost:8000
+    Accept: application/json
+    Content-Type: application/json
+
+    {"roulette_id":"d215d481-a0fb-47d7-bd69-d6b731b01c04"}
+
+
+**Example response**:
+   
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+        "status": "OPEN"
+    }
+
+.. sourcecode:: http 
+
+    HTTP/1.1 400 Bad Request
+    Content-Type: application/json
+
+    {
+        "error": "Roulette is already open"
+    }   
+
+.. sourcecode:: http 
+
+    HTTP/1.1 400 Bad Request
+    Content-Type: application/json
+
+    {
+        "error:Roulette does not exist"
+    }   
+
+
+
+.. http:post:: /api/betroulette/
+
+    Registers a bet for a given user id validates the amount, the roulette id and the number
+
+    :reqheader Content-Type: Content-Type accepted by Server
+    :reqheader Authorization: User id 
+    :status 200: Operation successful 
+    :status 400: Operation rejected
+    :body: application/json 
+    
+**Body**
+
+.. sourcecode:: json 
+
+    {"number":"<number to bet>","amount":"<amount>","roulette_id":"<roulette_id>"}
+
+
+**Example Request**:
+
+.. http:example:: curl wget
+
+    POST /api/betroulette/ HTTP/1.1
+    Host: localhost:8000
+    Accept: application/json
+    Content-Type: application/json
+
+    {"number":"12","amount":100,"roulette_id":"d215d481-a0fb-47d7-bd69-d6b731b01c04"}
+
+
+**Example response**:
+   
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+         "status": "Bet Registered"
+    }
+
+.. sourcecode:: http 
+
+    HTTP/1.1 400 Bad Request
+    Content-Type: application/json
+
+    {
+        "error": "Bet exceeds the maximum amount"
+    }   
+
+.. sourcecode:: http 
+
+    HTTP/1.1 400 Bad Request
+    Content-Type: application/json
+
+    {
+        "error": "Invalid number, please try again"
+    }   
+
+.. note:: This endpoint supports and calculates "RED" and "BLACK" as number field
+
+
+.. http:post:: /api/closeroulette/
+
+    Closes a open roulette and returns its results
+
+    :reqheader Content-Type: Content-Type accepted by Server
+    :status 200: Operation successful 
+    :status 400: Operation rejected
+    :body: application/json 
+    
+**Body**
+
+.. sourcecode:: json 
+
+    {"roulette_id":"<roulette_id>"}
+
+
+**Example Request**:
+
+.. http:example:: curl wget
+
+    POST /api/close_roulette/ HTTP/1.1
+    Host: localhost:8000
+    Accept: application/json
+    Content-Type: application/json
+
+    {"roulette_id":"d215d481-a0fb-47d7-bd69-d6b731b01c04"}
+
+
+**Example response**:
+   
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+    "winner_number": "3",
+    "results": [
+        {
+            "win": 0,
+            "user": "User1",
+            "amount": 1000
+        },
+        {
+            "win": 0,
+            "user": "User2",
+            "amount": 1000
+        },
+        
+        ]
+    }
+
+.. sourcecode:: http 
+
+    HTTP/1.1 400 Bad Request
+    Content-Type: application/json
+
+    {
+        "error": "Roulette already closed"
+    }   
+
+.. sourcecode:: http 
+
+    HTTP/1.1 400 Bad Request
+    Content-Type: application/json
+
+    {
+        "error": "Roulette does not exists"
+    }   
+
+.. http:post:: /api/listroulette/
+
+    List the results of a closed roulette
+
+    :reqheader Content-Type: Content-Type accepted by Server
+    :status 200: Operation successful 
+    :status 400: Operation rejected
+    :body: application/json 
+    
+**Body**
+
+.. sourcecode:: json 
+
+    {"roulette_id":"<roulette_id>"}
+
+
+**Example Request**:
+
+.. http:example:: curl wget
+
+    POST /api/listroulette/ HTTP/1.1
+    Host: localhost:8000
+    Accept: application/json
+    Content-Type: application/json
+    :body: application/json 
+
+    {"roulette_id":"d215d481-a0fb-47d7-bd69-d6b731b01c04"}
+
+
+**Example response**:
+   
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+    "winner_number": "3",
+    "results": [
+        {
+            "win": 0,
+            "user": "User1",
+            "amount": 1000
+        },
+        {
+            "win": 0,
+            "user": "User2",
+            "amount": 1000
+        },
+        
+        ]
+    }
+
+.. sourcecode:: http 
+
+    HTTP/1.1 400 Bad Request
+    Content-Type: application/json
+
+    {
+         "error": "Roulette still open"
+    }   
+
+.. sourcecode:: http 
+
+    HTTP/1.1 400 Bad Request
+    Content-Type: application/json
+
+    {
+        "error": "Roulette does not exists"
+    }   
+
+
+.. http:post:: /api/createuser/
+
+    Creates a new user in order to make future bets
+
+    :reqheader Content-Type: Content-Type accepted by Server
+    :status 200: Creation successful 
+    :body: application/json 
+
+**Body**
+
+.. sourcecode:: json 
+    
+    {"username":"<username>","password":"<password>"}
+
+**Example Request**:
+
+.. http:example:: curl wget
+
+    POST /api/createuser/ HTTP/1.1
+    Host: localhost:8000
+    Accept: application/json
+    Content-Type: application/json
+
+    {"username":"User3","password":"User3"}
+
+**Example response**:
+   
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    {
+        "status": "user created successfully"
+    }
+
+
+.. note:: you can list the users and tokens (required in the betroulette endpoint) in the django admin panel
+    http://127.0.0.1:8000/admin/ username: admin, password: admin

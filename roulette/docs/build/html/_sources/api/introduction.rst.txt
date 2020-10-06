@@ -1,0 +1,13 @@
+******************
+Introduction
+******************
+
+Django REST Framework
+=======================
+
+Django REST framework is a powerful and flexible toolkit for building Web APIs. 
+DemoFrame is based on Django and uses Django REST for enabling APIs. This APIs enables the communication
+betweeen the FrontEnd Application with the DemoFrame Backend (such User management, Permissions, Authentication, Configuration and so on) and 
+also between FrontEnd and ACI Applications. 
+
+Documentation about REST Framework can be found on https://www.django-rest-framework.org/
