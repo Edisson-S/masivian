@@ -1,2 +1,2 @@
 # masivian
-Please download and read the html docs in the docs folder
+Please read the docs at http://docsmasivian.s3-website-us-east-1.amazonaws.com/
